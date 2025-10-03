@@ -8,8 +8,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
 
-        stage.setMinWidth(600);
-        stage.setMinHeight(900);
+        stage.setMinWidth(700);
+        stage.setMinHeight(1000);
         stage.centerOnScreen();
 
     landingPage landingPageObj = new landingPage(stage);

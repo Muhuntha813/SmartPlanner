@@ -30,7 +30,6 @@ public class landingPage {
                     System.out.println("Login Button Was Clicked");
                     LoginPage loginPage = new LoginPage(stage);
                     Scene loginScene = new Scene(loginPage.getLoginPage());
-                    stage.setScene(loginScene);
                     loginScene.getStylesheets().add(
                             getClass().getResource("/styles/style.css").toExternalForm()
                     );
@@ -41,12 +40,31 @@ public class landingPage {
         button1.getStyleClass().add("loginButton");
 
         Button button2 = new Button();
-        button2.setOnAction( e -> System.out.println("Button 2 Was Clicked"));
+        button2.setOnAction( e -> {
+                    System.out.println("Button 2 Was Clicked");
+                    RegisterPage registerPage = new RegisterPage(stage);
+                    Scene registerScene = new Scene(registerPage.getRegisterPage());
+                    stage.setScene(registerScene);
+                    registerScene.getStylesheets().add(
+                            getClass().getResource("/styles/style.css").toExternalForm()
+                    );
+                    stage.setScene(registerScene);
+                    stage.centerOnScreen();
+                });
         button2.setText("Sign Up");
         button2.getStyleClass().add("loginButton");
 
         Button button3 = new Button();
-        button3.setOnAction( e -> System.out.println("Button 3 Was Clicked"));
+        button3.setOnAction( e -> {
+                    System.out.println("Button 3 Was Clicked");
+                    SrmStudentLogin studentLoginPage = new SrmStudentLogin(stage);
+                    Scene studentLoginScene = new Scene(studentLoginPage.getLoginPageSrm());
+                    stage.setScene(studentLoginScene);
+                    studentLoginScene.getStylesheets().add(
+                            getClass().getResource("/styles/style.css").toExternalForm()
+                    );
+                    stage.centerOnScreen();
+                });
         button3.setText("SRM Student Login");
         button3.getStyleClass().add("loginButton");
 

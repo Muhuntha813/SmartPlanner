@@ -1,35 +1,32 @@
 package com.smartplanner;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.geometry.Insets;
 
-
-import java.awt.*;
-
-public class LoginPage {
+public class RegisterPage {
 
     private final Stage stage;
     private VBox view;
 
-    public LoginPage(Stage stage){
+    public RegisterPage(Stage stage){
         this.stage = stage;
-        loginPageUI();
+        RegisterPageUi();
     }
 
-    private void loginPageUI(){
+    private void RegisterPageUi(){
         Button backButton = new Button("<- Back");
         backButton.getStyleClass().add("loginButton");
         backButton.setOnAction(e ->{
             landingPage landing = new landingPage(stage);
             Scene backScene = landing.getlandingPage();
-                stage.setScene(backScene);
+            stage.setScene(backScene);
         });
 
         HBox topBar = new HBox(backButton);
@@ -39,21 +36,22 @@ public class LoginPage {
         TextField userName = new TextField();
         userName.setPromptText("UserName");
 
-        PasswordField passWord = new PasswordField();
-        passWord.setPromptText("Password");
+        PasswordField passWord1 = new PasswordField();
+        passWord1.setPromptText("Enter Password");
 
-        VBox form = new VBox(10, userName,passWord);
+        PasswordField passWord2 = new PasswordField();
+        passWord2.setPromptText("Confirm Password");
+
+        VBox form = new VBox(10, userName,passWord1,passWord2);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(16));
 
         view = new VBox(10, topBar, form);
         view.setAlignment(Pos.TOP_CENTER);
         view.setPadding(new Insets(12));
-
     }
 
-    public VBox getLoginPage(){
+    public VBox getRegisterPage(){
         return view;
     }
-
 }
