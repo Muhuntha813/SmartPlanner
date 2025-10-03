@@ -2,6 +2,7 @@ package com.smartplanner;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -11,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.geometry.Insets;
 
 
-import java.awt.*;
+//import java.awt.*;
 
 public class LoginPage {
 
@@ -42,7 +43,37 @@ public class LoginPage {
         PasswordField passWord = new PasswordField();
         passWord.setPromptText("Password");
 
-        VBox form = new VBox(10, userName,passWord);
+        Button loginBtn = new Button("Login");
+        loginBtn.getStyleClass().add("loginButton");
+
+        Label status = new Label();
+        status.setStyle("-fx-text-fill: red;");
+
+        loginBtn.setOnAction( e -> {
+            String u = userName.getText().trim();
+            String p = passWord.getText().trim();
+
+            if(u.isEmpty() || p.isEmpty()) {
+                status.setText("Enter User Name and PassWord Please!!");
+                return;
+            }
+
+            AuthService authService = new AuthService();
+            boolean isCorrect = authService.checkCredentials(u,p);
+
+            if (isCorrect) {
+                // If credentials are correct, go to welcome screen
+                WelcomeView welcome = new WelcomeView(u);
+                Scene scene = new Scene(welcome, 600, 400);
+                stage.setScene(scene);
+                stage.setMaximized(true);
+                stage.centerOnScreen();
+            } else {
+                status.setText("Invalid username or password.");
+            }
+        });
+
+        VBox form = new VBox(10, userName, passWord, loginBtn, status);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(16));
 

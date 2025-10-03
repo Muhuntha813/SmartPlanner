@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -42,7 +43,57 @@ public class RegisterPage {
         PasswordField passWord2 = new PasswordField();
         passWord2.setPromptText("Confirm Password");
 
-        VBox form = new VBox(10, userName,passWord1,passWord2);
+        Button loginBtn = new Button("Login");
+        loginBtn.getStyleClass().add("loginButton");
+
+        Label status = new Label();
+        status.setStyle("-fx-text-fill: red;");
+
+        loginBtn.setOnAction( e -> {
+            String u = userName.getText().trim();
+            String p1 = passWord1.getText().trim();
+            String p2 = passWord2.getText().trim();
+
+
+            if(u.isEmpty() && p1.isEmpty() && p2.isEmpty()) {
+                status.setText("Enter User Name and Password");
+                return;
+            }
+            else if(!u.isEmpty() && p1.isEmpty() && p2.isEmpty()) {
+                status.setText("Enter Password Fields");
+                return;
+            }
+            else if(!u.isEmpty() && !p1.isEmpty() && p2.isEmpty()) {
+                status.setText("Confrom PassWord");
+                return;
+            }
+            else if(!p1.isEmpty() && !p2.isEmpty() && !u.isEmpty()) {
+                if(p1.equals(p2)) {
+                    status.setText("Done and Dusted");
+                    status.setStyle("-fx-text-fill: green;");
+                    AuthService auth = new AuthService();
+                    boolean isCreated = auth.createUser(u,p1);
+                    if(isCreated){
+                        WelcomeView welcome = new WelcomeView(u);
+                        Scene scene = new Scene(welcome, 800, 600);
+                        stage.setScene(scene);
+                        stage.setMaximized(true);   // fill the screen like you wanted
+                        stage.centerOnScreen();
+                    }
+                    else {
+                        status.setText("UserName Already exist");
+                        status.setStyle("-fx-text-fill: blue;");
+                    }
+                }
+                else{
+                    status.setText("PassWords Dont Match");
+                    return;
+                }
+            }
+
+        });
+
+        VBox form = new VBox(10, userName,passWord1,passWord2,loginBtn,status);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(16));
 
