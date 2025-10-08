@@ -39,9 +39,11 @@ public class LoginPage {
 
         TextField userName = new TextField();
         userName.setPromptText("UserName");
+        userName.getStyleClass().add("login-field-user");
 
         PasswordField passWord = new PasswordField();
         passWord.setPromptText("Password");
+        passWord.getStyleClass().add("login-field-pass");
 
         Button loginBtn = new Button("Login");
         loginBtn.getStyleClass().add("loginButton");
@@ -63,9 +65,11 @@ public class LoginPage {
 
             if (isCorrect) {
                 // If credentials are correct, go to welcome screen
-                WelcomeView welcome = new WelcomeView(u);
-                Scene scene = new Scene(welcome, 600, 400);
-                stage.setScene(scene);
+//                WelcomeView welcome = new WelcomeView(u);
+//                Scene scene = new Scene(welcome, 600, 400);
+                Dashboard dash = new Dashboard(u);
+                dash.DashboardView(stage);
+//                stage.setScene(scene);
                 stage.setMaximized(true);
                 stage.centerOnScreen();
             } else {

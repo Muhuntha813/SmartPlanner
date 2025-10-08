@@ -26,16 +26,22 @@ public class AuthService {
         }
     }
 
-    public boolean createUser(String username, String password) {
+    public boolean createUser(String username, String password,String currentOccupation,
+                              String currentExperience) {
         String sql = """
-            INSERT INTO public.users (username, password)
-            VALUES (?, ?)
-            ON CONFLICT (username) DO NOTHING
-            """;
+        INSERT INTO public.users (username, password, currentoccupation, currentexperience)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT (username) DO UPDATE
+        SET password = EXCLUDED.password,
+            currentoccupation = EXCLUDED.currentoccupation,
+            currentexperience = EXCLUDED.currentexperience
+        """;
         try (Connection conn = Db.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
             ps.setString(2, password);
+            ps.setString(3,currentOccupation);
+            ps.setString(4,currentExperience);
             int updated = ps.executeUpdate();   // 1 if inserted, 0 if conflict
             return updated == 1;
         } catch (Exception e) {

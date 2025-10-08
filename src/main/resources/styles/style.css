@@ -32,3 +32,23 @@
     -fx-padding: 6 12;
 }
 
+.login-field-user,.login-field-pass {
+        -fx-background-color: #ffffff;
+        -fx-background-radius: 8;
+        -fx-border-color: #4169E1;
+        -fx-border-radius: 8;
+        -fx-border-width: 2;
+        -fx-prompt-text-fill: gray;
+        -fx-text-fill: black;
+        -fx-font-size: 16px;
+        -fx-padding: 5 10 5 10;
+
+        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 6, 0, 0, 2);
+        -fx-background-insets: 0;
+}
+
+.login-field-user:focused , .login-field-pass:focused {
+    -fx-border-color: #2196F3;
+    -fx-background-color: #f9f9f9;
+    -fx-effect: dropshadow(three-pass-box, rgba(30,144,255,0.4), 8, 0, 0, 3);
+}

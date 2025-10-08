@@ -36,12 +36,23 @@ public class RegisterPage {
 
         TextField userName = new TextField();
         userName.setPromptText("UserName");
+        userName.getStyleClass().add("login-field-user");
 
         PasswordField passWord1 = new PasswordField();
         passWord1.setPromptText("Enter Password");
+        passWord1.getStyleClass().add("login-field-pass");
 
         PasswordField passWord2 = new PasswordField();
         passWord2.setPromptText("Confirm Password");
+        passWord2.getStyleClass().add("login-field-pass");
+
+        TextField currentOccupation = new TextField();
+        currentOccupation.setPromptText("Student Course or Work");
+        currentOccupation.getStyleClass().add("login-field-pass");
+
+        TextField currentExperience = new TextField();
+        currentExperience.setPromptText("Student Year of Study or Work Expereince in Years");
+        currentExperience.getStyleClass().add("login-field-pass");
 
         Button loginBtn = new Button("Login");
         loginBtn.getStyleClass().add("loginButton");
@@ -53,6 +64,8 @@ public class RegisterPage {
             String u = userName.getText().trim();
             String p1 = passWord1.getText().trim();
             String p2 = passWord2.getText().trim();
+            String cO = currentOccupation.getText();
+            String cE = currentExperience.getText();
 
 
             if(u.isEmpty() && p1.isEmpty() && p2.isEmpty()) {
@@ -72,7 +85,7 @@ public class RegisterPage {
                     status.setText("Done and Dusted");
                     status.setStyle("-fx-text-fill: green;");
                     AuthService auth = new AuthService();
-                    boolean isCreated = auth.createUser(u,p1);
+                    boolean isCreated = auth.createUser(u,p1,cO,cE);
                     if(isCreated){
                         WelcomeView welcome = new WelcomeView(u);
                         Scene scene = new Scene(welcome, 800, 600);
@@ -93,7 +106,14 @@ public class RegisterPage {
 
         });
 
-        VBox form = new VBox(10, userName,passWord1,passWord2,loginBtn,status);
+        VBox form = new VBox(10,
+                userName,
+                passWord1,
+                passWord2,
+                currentOccupation,
+                currentExperience,
+                loginBtn,
+                status);
         form.setAlignment(Pos.CENTER);
         form.setPadding(new Insets(16));
 
