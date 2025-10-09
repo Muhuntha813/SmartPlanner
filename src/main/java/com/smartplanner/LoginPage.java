@@ -67,7 +67,10 @@ public class LoginPage {
                 // If credentials are correct, go to welcome screen
 //                WelcomeView welcome = new WelcomeView(u);
 //                Scene scene = new Scene(welcome, 600, 400);
+
+                AuthService.userProfile profile = authService.getUserProfile(u);
                 Dashboard dash = new Dashboard(u);
+                dash.setProfile(profile.currentOccupation, profile.currentExperience);
                 dash.DashboardView(stage);
 //                stage.setScene(scene);
                 stage.setMaximized(true);
