@@ -274,12 +274,54 @@ public class Dashboard {
         cloudBar.setPadding(new Insets(12));
         cloudBar.setAlignment(Pos.BASELINE_RIGHT); // or Pos.CENTER_RIGHT
 
-        VBox content = new VBox(12, inputBar, table, cloudBar);
+        Label aiLabel = new Label("AI Chat");
+        aiLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+
+        TextArea chatInput = new TextArea();
+        chatInput.setPromptText("Ask something about your tasks…");
+        chatInput.setWrapText(true);
+        chatInput.setPrefRowCount(3);              // initial height
+        VBox.setVgrow(chatInput, Priority.ALWAYS); // let it expand vertically
+
+        Button sendBtn = new Button("Send");
+        sendBtn.getStyleClass().add("add-task-btn");
+        sendBtn.setOnAction(ev -> {
+            String text = chatInput.getText().trim();
+            if (!text.isEmpty()) {
+                // TODO: hook your AI here
+                System.out.println("AI prompt: " + text);
+                chatInput.clear();
+            }
+        });
+
+        HBox sendRow = new HBox(sendBtn);
+        sendRow.setAlignment(Pos.BOTTOM_RIGHT);
+
+        VBox aiChatPane = new VBox(8, aiLabel, chatInput, sendRow);
+        aiChatPane.setPadding(new Insets(12));
+        aiChatPane.setStyle(
+                "-fx-background-color: #f4f4f7;" +
+                        "-fx-border-color: #d7d7e0;" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-background-radius: 10;"
+        );
+// make it take remaining horizontal space
+        HBox.setHgrow(aiChatPane, Priority.ALWAYS);
+
+// put AI chat on the LEFT, cloud buttons on the RIGHT
+        HBox bottomBar = new HBox(16, aiChatPane, cloudBar);
+        bottomBar.setPadding(new Insets(12));
+        bottomBar.setAlignment(Pos.CENTER_LEFT);
+
+// small right margin after the chat pane
+        HBox.setMargin(aiChatPane, new Insets(0, 12, 0, 0));
+
+
+        VBox content = new VBox(12, inputBar, table, bottomBar);
         content.setPadding(new Insets(20));
         root.setCenter(content);
-//        Pane pane = new Pane();
-//        pane.setPadding(new Insets(20));
-//        root.setCenter(pane);
+
+
 
         Scene scene = new Scene(root, 1200, 720);
         scene.getStylesheets().addAll(

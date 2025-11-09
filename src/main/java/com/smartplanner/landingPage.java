@@ -33,7 +33,7 @@ public class landingPage {
                     loginScene.getStylesheets().add(
                             getClass().getResource("/styles/style.css").toExternalForm()
                     );
-                    stage.setScene(loginScene);
+                     stage.setScene(loginScene);
                     stage.centerOnScreen();
                 });
         button1.setText("Login");
